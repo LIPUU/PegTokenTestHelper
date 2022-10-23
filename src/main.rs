@@ -114,22 +114,30 @@ fn get_withdraw(operation_type:u8, cast_command: &mut std::process::Command)-> S
 }
 
 fn get_different_number(vt:VariableType)-> u64 {
-    let mut rng = rand::thread_rng();
     match vt {
-        VariableType::WhichChain=>rng.gen_range(5..8),
-        VariableType::UserIndex=>rng.gen_range(0..100),
-        VariableType::Asset=>rng.gen_range(0..3)
+        VariableType::WhichChain=>{
+            let mut rng = rand::thread_rng();
+            rng.gen_range(5..8)
+        },
+        VariableType::UserIndex=>{
+            let mut rng = rand::thread_rng();
+            rng.gen_range(0..100)
+        },
+        VariableType::Asset=>{
+            let mut rng = rand::thread_rng();
+            rng.gen_range(0..3)
+        }
     }
 }
 
 fn get_amount(decimal:u8)->String{
-    let mut rng = rand::thread_rng();
-
     let number_length=match decimal{
         18=>{
+            let mut rng = rand::thread_rng();
             rng.gen_range(1..23)
         },
         6=>{
+            let mut rng = rand::thread_rng();
             rng.gen_range(1..11)
         },
         _=>panic!()
@@ -138,10 +146,12 @@ fn get_amount(decimal:u8)->String{
     if number_length==22 {
         long_number.push(std::char::from_digit(1, 10).unwrap());
     }else{
+        let mut rng = rand::thread_rng();
         long_number.push(std::char::from_digit(rng.gen_range(1..10), 10).unwrap());
     }
 
     for _ in 0..number_length-1 {
+        let mut rng = rand::thread_rng();
         long_number.push(std::char::from_digit(rng.gen_range(0..10), 10).unwrap());
     }
 
